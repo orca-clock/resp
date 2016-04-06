@@ -3,6 +3,7 @@ package resp
 import (
 	"errors"
 	"net"
+	"strings"
 	"sync"
 )
 
@@ -33,6 +34,8 @@ func (s *Server) AddHandler(method string, fc HandlerFunc) error {
 	if s.handlers == nil {
 		s.handlers = map[string]HandlerFunc{}
 	}
+
+	method = strings.ToLower(method)
 
 	if _, ok := s.handlers[method]; ok {
 		return errors.New("resp server: handler already set for method: " + method)

@@ -8,6 +8,7 @@ import (
 	"io"
 	"net"
 	"strconv"
+	"strings"
 	"sync"
 )
 
@@ -51,6 +52,8 @@ func (conn *Conn) ReadRequest() (*Request, error) {
 	if !ok {
 		return nil, errors.New("bad request")
 	}
+
+	method = strings.ToLower(method)
 
 	req := &Request{method, args[1:]}
 	return req, nil
